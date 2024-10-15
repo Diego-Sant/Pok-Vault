@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Futura Std';
+    src: url('../public/fonts/Futura-Std-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura Std';
+    src: url('../public/fonts/Futura-Std-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura Std';
+    src: url('../public/fonts/Futura-Std-Heavy.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Futura Std', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
