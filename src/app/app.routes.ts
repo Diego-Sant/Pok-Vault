@@ -1,8 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -11,11 +13,13 @@ export const routes: Routes = [
     },
     { 
         path: 'cadastrar', 
-        component: RegisterComponent 
+        component: RegisterComponent,
+        canActivate: [AuthGuard]
     },
     { 
         path: 'entrar', 
-        component: LoginComponent 
+        component: LoginComponent,
+        canActivate: [AuthGuard]
     },
 ];
 

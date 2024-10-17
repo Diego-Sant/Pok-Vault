@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="flex full-center h-100">
+    <form class="flex full-center flex-col gap-20" [formGroup]="loginForm" 
+      (ngSubmit)="onSubmit()">
+      <h1 class="text-40">Entrar na sua conta</h1>
+  
+      <input formControlName="username" type="text" placeholder="Nome do usuário"
+          class="p-20 border rounded"/>
+  
+      <input formControlName="password" type="password" placeholder="Senha"
+          class="p-20 border rounded">
+  
+      <button type="submit" class="p-25 rounded bg-yellow text-white font-bold
+          text-20 cursor-pointer hover:bg-yellowhover">
+          Entrar
+      </button>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+      <a href="/cadastrar" class="link text-14 text-gray-500 border-b">
+          Não tem uma conta?
+      </a>
+    </form>
+</div>
+  

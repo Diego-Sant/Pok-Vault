@@ -1,1 +1,5 @@
-<p>Home</p>
+<div class="column">
+    <div class="row wrap gap-1 space-between">
+        <app-card *ngFor="let card of cardsPoke" [card]="card"></app-card>
+    </div>
+</div>

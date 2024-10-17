@@ -24,4 +24,8 @@ export class HeaderComponent implements OnInit {
       this.username = user ? user.username : 'Usuário não logado';
     });
   }
+
+  onLogout(): void {
+    this.authService.logout();
+  }
 }

@@ -16,6 +16,10 @@ export class AuthService {
     }
   }
 
+  get currentUserValue() {
+    return this.currentUserSubject.value;
+  }
+
   updateUser(user: any) {
     this.currentUserSubject.next(user);
     localStorage.setItem('username', JSON.stringify(user));
@@ -25,4 +29,5 @@ export class AuthService {
     this.currentUserSubject.next(null);
     localStorage.removeItem('username');
   }
+
 }
