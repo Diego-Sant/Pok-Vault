@@ -9,6 +9,7 @@ import { Cards } from '../../types';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
 export class HomeComponent {
 
   constructor(private cardsService: CardsService) {}

@@ -32,9 +32,43 @@ html, body, app-root {
     overflow-x: hidden;
 }
 
+input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    width: 100%;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+}
+
 app-root {
     display: flex;
     flex-direction: column;
+}
+
+.screen-max-width {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    position: relative;
+    max-width: 1400px;
 }
 
 .flex {
@@ -110,4 +144,19 @@ app-root {
 
 .font-semibold {
     font-weight: 600;
+}
+
+.link {
+    outline: none;
+    color: #1A1A1A;
+    text-decoration: none;
+}
+
+.link:active {
+    text-decoration: none;
+    color: #1A1A1A;
+}
+
+.link:hover {
+    color: #555555;
 }

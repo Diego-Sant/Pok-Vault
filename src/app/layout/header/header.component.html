@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header class="header-container">
+    <div class="wrapper row screen-max-width">
+        <a href="/">
+            <img src="PokeVault.png" alt="PokéVault Logo" class="h-50">
+        </a>
+
+        <p *ngIf="(currentUser$ | async) as currentUser; else loginLinks">
+            {{ currentUser.username }}
+        </p>
+        <ng-template #loginLinks>
+            <div class="login-links">
+                <a href="/entrar" class="link">Entrar</a>
+                <a href="/cadastrar" class="link">Criar conta</a>
+            </div>
+        </ng-template>
+    </div>
+</header>

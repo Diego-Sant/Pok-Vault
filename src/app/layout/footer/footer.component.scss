@@ -22,12 +22,12 @@ footer {
     margin-top: 1rem;
 }
 
-.w-100 {
-    width: 100px;
+.w-80 {
+    width: 80px;
 }
 
-.h-100 {
-    height: 100px;
+.h-80 {
+    height: 80px;
 }
 
 .text-gray-600 {
@@ -40,20 +40,6 @@ footer {
     line-height: 1rem;
 }
 
-.link {
-    outline: none;
-    color: #1A1A1A;
-    text-decoration: none;
-}
-
-.link:active {
-    text-decoration: none;
-    color: #1A1A1A;
-}
-
-.link:hover {
-    color: #555555;
-}
 
 .flex-1 {
     flex: 1 1 0%;
@@ -70,6 +56,12 @@ footer {
 
 .text-center {
     text-align: center;
+}
+
+footer:first-of-type {
+    padding-top: 20px;
+    padding-bottom: 8px;
+    border-top: 2px solid #F0F0F0;
 }
 
 .logo {
