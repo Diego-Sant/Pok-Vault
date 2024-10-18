@@ -28,7 +28,7 @@ export interface Cards {
 export interface Card {
     title: string;
     imageUrl: string;
-    price: number;
+    price: string;
     rarity: number;
 }
 

@@ -1,1 +1,34 @@
-<p>{{ card.title }}</p>
+<div class="column gap-1 wrapper">
+    <section class="cards">
+        <div class="card charizard animated" 
+        [ngStyle]="{'background-image': 'url(' + card.imageUrl + ')'}"
+        
+        ></div>
+    </section>
+    <style class="hover"></style>
+
+    <h2 class="title">{{card.title}}</h2>
+
+    <div class="row gap-1">
+        <span class="price-label">Valor de mercado:</span>
+        <span class="price">R${{ card.price }}</span>
+    </div>
+
+    <div class="flex column">
+        <p>Raridade:</p>
+        <p-rating [(ngModel)]="card.rarity" stars="5" [readonly]="true" iconCancelClass="hidden">
+            <ng-template pTemplate="onicon">
+                <img 
+                    src="onicon.png" 
+                    width="25px" 
+                    height="25px" />
+            </ng-template>
+            <ng-template pTemplate="officon">
+                <img 
+                    src="officon.png"
+                    width="25px"
+                    height="25px" />
+            </ng-template>
+        </p-rating>
+    </div>
+</div>
