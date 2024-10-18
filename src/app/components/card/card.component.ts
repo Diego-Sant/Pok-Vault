@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, Renderer2, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewEncapsulation } from '@angular/core';
 import { Card } from '../../../types';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +15,17 @@ import { CommonModule } from '@angular/common';
 
 export class CardComponent {
   @Input() card!: Card;
+  isModalOpen: boolean = false;
+
+  openModal() {
+    this.isModalOpen = true;
+    this.cards.forEach(card => card.classList.remove('animated'));
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.cards.forEach(card => card.classList.add('animated'));
+  }
   
   x: any;
   cards: HTMLElement[] = [];
@@ -41,6 +52,10 @@ export class CardComponent {
   }
 
   private handleMouseMove(event: MouseEvent | TouchEvent) {
+    if (this.isModalOpen) {
+      return;
+    }
+
     const pos = event instanceof MouseEvent
       ? [event.offsetX, event.offsetY]
       : [event.touches[0].clientX, event.touches[0].clientY];

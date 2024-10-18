@@ -1,17 +1,16 @@
 <div class="column gap-1 wrapper">
-    <section class="cards">
-        <div class="card charizard animated" 
+    <div 
+        class="card imageUrl animated" 
         [ngStyle]="{'background-image': 'url(' + card.imageUrl + ')'}"
-        
-        ></div>
-    </section>
+        (click)="openModal()"
+    ></div>
     <style class="hover"></style>
 
     <h2 class="title">{{card.title}}</h2>
 
     <div class="row gap-1">
         <span class="price-label">Valor de mercado:</span>
-        <span class="price">R${{ card.price }}</span>
+        <span class="price">R${{card.price}}</span>
     </div>
 
     <div class="flex column">
@@ -30,5 +29,17 @@
                     height="25px" />
             </ng-template>
         </p-rating>
+    </div>
+
+    <div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
+        <div (click)="closeModal()" class="absolute cursor-pointer">
+            <img width="36" height="36" src="close.svg" alt="Fechar" />
+        </div>
+
+        <div class="modal-content relative" (click)="$event.stopPropagation()">
+            <img [src]="card.imageUrl" [alt]="card.title" 
+                class="imageUrlModal" 
+            />
+        </div>
     </div>
 </div>
