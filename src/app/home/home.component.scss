@@ -3,6 +3,12 @@
     grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.border {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 @media (min-width: 640px) {
     .cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -19,7 +19,7 @@ export class HomeComponent {
   cardsPoke: Card[] = [];
 
   ngOnInit() {
-    this.cardsService.getCards('http://localhost:8080/api/cartas', {page: 0, perPage: 5})
+    this.cardsService.getCards('http://localhost:8080/api/cartas', {page: 0, perPage: 60})
     .subscribe((cards: Cards) => {
       this.cardsPoke = cards.cards;
     })

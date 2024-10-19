@@ -1,4 +1,4 @@
-<div class="column gap-1 wrapper">
+<div class="column gap-1 wrapperCard .screen-max-width">
     <div 
         class="card imageUrl animated" 
         [ngStyle]="{'background-image': 'url(' + card.imageUrl + ')'}"
@@ -13,7 +13,7 @@
         <span class="price">R${{card.price}}</span>
     </div>
 
-    <div class="flex column">
+    <div class="flex column gap-y">
         <p>Raridade:</p>
         <p-rating [(ngModel)]="card.rarity" stars="5" [readonly]="true" iconCancelClass="hidden">
             <ng-template pTemplate="onicon">
