@@ -74,6 +74,41 @@ app-root {
     max-width: 1400px;
 }
 
+.p-paginator {
+    flex-wrap: nowrap;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+    .p-paginator {
+        flex-wrap: wrap;
+    }
+}
+
+.p-paginator-pages {
+    display: flex;
+}
+
+.p-paginator-page.p-highlight {
+    position: relative;
+    z-index: 1;
+    color: #5581f1;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #eff6ff;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+}
+
 .flex {
     display: flex;
 }

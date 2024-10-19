@@ -114,6 +114,8 @@ export class CardComponent {
 
   private setHoverStyles(style: string) {
     const styleTag = this.el.nativeElement.querySelector('.hover');
-    styleTag.innerHTML = style;
+    if (styleTag) {
+      styleTag.innerHTML = style;
+    }
   }
 }
