@@ -17,7 +17,11 @@
     font-size: 1.4rem;
     line-clamp: 2;
     margin-top: 35px;
+    background: linear-gradient(40deg, #000000, #4d4d4d);
 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -39,6 +43,11 @@
   .price {
     font-weight: 700;
     font-size: 1rem;
+    background: linear-gradient(90deg, #ff007a, #ff7a00);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .gap-y {

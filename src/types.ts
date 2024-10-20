@@ -30,6 +30,7 @@ export interface Card {
     imageUrl: string;
     price: string;
     rarity: number;
+    createdAt: Date;
 }
 
 export interface PaginationParams {
