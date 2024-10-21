@@ -1,18 +1,33 @@
-<header class="header-container">
+<header class="header-container mb-10">
     <div class="wrapper row screen-max-width">
         <a href="/">
             <img src="PokeVault.png" alt="PokéVault Logo" class="h-50">
         </a>
 
-        <p class="flex gap-20 items-center mtmedia" *ngIf="(currentUser$ | async) as currentUser; else loginLinks">
-            {{ currentUser.username }}
-            <button (click)="onLogout()" class="btn-logout">Sair</button>
-        </p>
-        <ng-template #loginLinks>
-            <div class="login-links">
-                <a href="/entrar" class="link">Entrar</a>
-                <a href="/cadastrar" class="link">Criar conta</a>
+        <div class="flex gap-1 smcolumn">
+
+            <div class="relative">
+                <input 
+                    type="text" id="searchplaceholder"
+                    placeholder="Pesquisar cartas..." 
+                    (input)="onSearch($event)" 
+                    class="search-bar"
+                />
+                <label htmlFor="searchplaceholder" class="search-label">
+                    Pesquisar cartas...
+                </label>
             </div>
-        </ng-template>
+
+            <p class="flex gap-20 items-center mtmedia" *ngIf="(currentUser$ | async) as currentUser; else loginLinks">
+                {{ currentUser.username }}
+                <button (click)="onLogout()" class="btn-logout">Sair</button>
+            </p>
+            <ng-template #loginLinks>
+                <div class="login-links">
+                    <a href="/entrar" class="link">Entrar</a>
+                    <a href="/cadastrar" class="link">Criar conta</a>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </header>

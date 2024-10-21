@@ -5,11 +5,12 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CardsService } from '../services/cards.service';
 import { Card, Cards } from '../../types';
 import { CardComponent } from '../components/card/card.component';
+import { HeaderComponent } from "../layout/header/header.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardComponent, CommonModule, PaginatorModule],
+  imports: [CardComponent, CommonModule, PaginatorModule, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -18,6 +19,7 @@ export class HomeComponent {
   cardsPoke: Card[] = [];
   filteredCards: Card[] = [];
   activeFilter: string = 'older';
+  searchTerm: string = '';
 
   totalRecords = 0;
   rows: number = 12;
@@ -29,8 +31,13 @@ export class HomeComponent {
     this.fetchCards(event.page, event.rows);
   }
 
+  onSearch(term: string) {
+    this.searchTerm = term;
+    this.fetchCards(0, this.rows);
+  }
+
   fetchCards(page: number, perPage: number) {
-    this.cardsService.getCards('http://localhost:8080/api/cartas', {page, perPage})
+    this.cardsService.getCards('http://localhost:8080/api/cartas', {page, perPage, searchTerm: this.searchTerm})
       .subscribe((cards: Cards) => {
         this.cardsPoke = cards.cards;
         this.totalRecords = cards.total;

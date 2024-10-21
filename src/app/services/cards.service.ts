@@ -12,7 +12,7 @@ export class CardsService {
 
   getCards = (url: string, params: PaginationParams): Observable<Cards> => {
     return this.apiService.get(url, {
-      params,
+      params: { ...params },
       responseType: 'json',
       withCredentials: true,
     });

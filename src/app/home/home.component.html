@@ -1,4 +1,7 @@
+<app-header (searchEvent)="onSearch($event)"></app-header>
+
 <div class="gap-1">
+
     <div class="filter-buttons">
         <button (click)="onFilterChange('older')" [ngClass]="{'active': activeFilter === 'older'}">Mais antigos</button>
         <button (click)="onFilterChange('recent')" [ngClass]="{'active': activeFilter === 'recent'}">Adicionados recentemente</button>

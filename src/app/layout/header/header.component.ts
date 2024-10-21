@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
@@ -15,8 +15,16 @@ export class HeaderComponent implements OnInit {
   username: string | null = null;
   currentUser$: Observable<any>;
 
+  @Output() searchEvent = new EventEmitter<string>();
+
   constructor(private authService: AuthService) {
     this.currentUser$ = this.authService.currentUser$;
+  }
+
+  onSearch(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const searchTerm = inputElement.value;
+    this.searchEvent.emit(searchTerm);
   }
 
   ngOnInit(): void {
