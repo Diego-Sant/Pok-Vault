@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Options } from '../../types';
+import { Card, Options } from '../../types';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,14 @@ export class ApiService {
   }
 
   post<T>(url: string, body: any, options?: Options): Observable<T> {
-    return this.httpClient.post<T>(url, body, options);
+    return this.httpClient.post<T>(url, body, options) as Observable<T>;
+  }
+
+  put<T>(url: string, body: Card, options?: Options): Observable<T> {
+    return this.httpClient.put<T>(url, body, options) as Observable<T>;
+  }
+
+  delete<T>(url: string, options?: Options): Observable<T> {
+    return this.httpClient.delete<T>(url, options) 
   }
 }

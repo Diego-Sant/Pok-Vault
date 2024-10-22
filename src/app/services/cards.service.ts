@@ -17,4 +17,16 @@ export class CardsService {
       withCredentials: true,
     });
   }
+
+  addCard = (url: string, body: any): Observable<any> => {
+    return this.apiService.post(url, body, {});
+  };
+
+  editCard = (url: string, body: any): Observable<any> => {
+    return this.apiService.put(url, body, {});
+  };
+
+  deleteCard = (url: string): Observable<any> => {
+    return this.apiService.delete(url, {});
+  };
 }

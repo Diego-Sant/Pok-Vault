@@ -26,23 +26,77 @@
     gap: 20px;
 
     button {
-        background-color: #f9f9f9;
-        color: #ffcc01;
-        text-shadow: 1px 1px 0px #345197, -1px -1px 0px #345197, 1px -1px 0px #345197, -1px 1px 0px #345197;
+        appearance: button;
+        background-color: #345197;
+        border: solid transparent;
+        border-radius: 16px;
+        border-width: 0 0 4px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: sans-serif;
+        font-size: 15px;
         font-weight: 700;
-        border-radius: 8px;
-        padding: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        letter-spacing: .8px;
+        line-height: 20px;
+        margin: 0;
+        outline: none;
+        overflow: visible;
+        padding: 13px 16px;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        touch-action: manipulation;
+        transform: translateZ(0);
+        transition: filter .2s, background-color .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        vertical-align: middle;
+        white-space: nowrap;
+        width: 100%;
 
         &.active {
-            background-color: #ffcc01;
+            background-color: #3b5273;
             color: white;
-            text-shadow: 1px 1px 0px #345197, -1px -1px 0px #345197, 1px -1px 0px #345197, -1px 1px 0px #345197;
+            text-shadow: none;
         }
     }
 
     button:hover {
-        background-color: rgb(255 204 1 / 0.7);
+        background-color: #4b6b99;
+    }
+
+    button:after {
+        background-clip: padding-box;
+        background-color: #678acb;
+        border: solid transparent;
+        border-radius: 16px;
+        border-width: 0 0 4px;
+        bottom: -4px;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -1;
+        transition: background-color 0.2s ease;
+    }
+
+    button:hover:after {
+        background-color: #a1b9e8;
+    }
+
+    button.active:after {
+        background-color: #4b6b99;
+    }
+
+    button.active:hover:after {
+        background-color: #5a7dbf;
+    }
+
+    button:focus {
+        user-select: auto;
     }
 }
 
@@ -53,12 +107,28 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 876px) {
     .filter-buttons {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
+
+@media (min-width: 1165px) {
+    .filter-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1455px) {
+    .filter-buttons {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+
 
 @media (min-width: 640px) {
     .cards {

@@ -18,6 +18,7 @@ import { HeaderComponent } from "../layout/header/header.component";
 export class HomeComponent {
   cardsPoke: Card[] = [];
   filteredCards: Card[] = [];
+
   activeFilter: string = 'older';
   searchTerm: string = '';
 
@@ -88,6 +89,51 @@ export class HomeComponent {
       options.push(this.totalRecords);
     }
     return options;
+  }
+
+  editCard(card: Card, id: number) {
+    this.cardsService.editCard(`http://localhost:8080/api/cartas/${id}`, card)
+    .subscribe(
+      {
+        next: (data) => {
+          console.log(data);
+          this.fetchCards(0, this.rows);
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      }
+    )
+  }
+
+  deleteCard(id: number) {
+    this.cardsService.deleteCard(`http://localhost:8080/api/cartas/${id}`)
+    .subscribe(
+      {
+        next: (data) => {
+          console.log(data);
+          this.fetchCards(0, this.rows);
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      }
+    )
+  }
+
+  addCard(card: Card) {
+    this.cardsService.addCard(`http://localhost:8080/api/cartas`, card)
+    .subscribe(
+      {
+        next: (data) => {
+          console.log(data);
+          this.fetchCards(0, this.rows);
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      }
+    )
   }
 
   ngOnInit() {
