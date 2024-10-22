@@ -23,6 +23,7 @@ export class AuthService {
   updateUser(user: any) {
     this.currentUserSubject.next(user);
     localStorage.setItem('username', JSON.stringify(user));
+    localStorage.setItem('token', user.token);
   }
 
   logout() {

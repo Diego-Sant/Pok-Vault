@@ -26,11 +26,13 @@ export interface Cards {
 }
 
 export interface Card {
+    id?: string;
     title: string;
     imageUrl: string;
     price: string;
     rarity: number;
     createdAt: Date;
+    userId: string;
 }
 
 export interface PaginationParams {

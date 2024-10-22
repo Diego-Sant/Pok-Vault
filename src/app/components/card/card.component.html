@@ -13,22 +13,37 @@
         <span class="price">R${{card.price}}</span>
     </div>
 
-    <div class="flex column gap-y">
+    <div class="flex column">
         <p>Raridade:</p>
-        <p-rating [(ngModel)]="card.rarity" stars="5" [readonly]="true" iconCancelClass="hidden">
-            <ng-template pTemplate="onicon">
-                <img 
-                    src="onicon.png" 
-                    width="25px" 
-                    height="25px" />
-            </ng-template>
-            <ng-template pTemplate="officon">
-                <img 
-                    src="officon.png"
-                    width="25px"
-                    height="25px" />
-            </ng-template>
-        </p-rating>
+        <div class="flex space-between items-center gap-15 flex-col-sm">
+            <p-rating [(ngModel)]="card.rarity" stars="5" [readonly]="true" iconCancelClass="hidden">
+                <ng-template  pTemplate="onicon">
+                    <img 
+                        class="rating"
+                        src="onicon.png" 
+                        width="25px" 
+                        height="25px" />
+                </ng-template>
+                <ng-template pTemplate="officon">
+                    <img 
+                        class="rating"
+                        src="officon.png"
+                        width="25px"
+                        height="25px" />
+                </ng-template>
+            </p-rating>
+    
+            <div class="row gap-5" *ngIf="currentUserId === card.userId">
+                <button type="button" pButton class="button-edit" 
+                    (click)="editCard()" class="editbutton">
+                    Editar
+                </button>
+                <button type="button" pButton class="button-delete"
+                    (click)="confirmDelete()" class="deletebutton" #deleteButton>
+                    Excluir
+                </button>
+            </div>
+        </div>
     </div>
 
     <div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
@@ -43,3 +58,5 @@
         </div>
     </div>
 </div>
+
+<p-confirmPopup></p-confirmPopup>

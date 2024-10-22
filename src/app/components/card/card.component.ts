@@ -1,13 +1,21 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewEncapsulation } from '@angular/core';
-import { Card } from '../../../types';
-import { RatingModule } from 'primeng/rating';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+import { RatingModule } from 'primeng/rating';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+
+import { Card } from '../../../types';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [RatingModule, FormsModule, CommonModule],
+  imports: [RatingModule, FormsModule, CommonModule, ButtonModule, ConfirmPopupModule],
+  providers: [ConfirmationService],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -15,6 +23,51 @@ import { CommonModule } from '@angular/common';
 
 export class CardComponent {
   @Input() card!: Card;
+  @Output() edit: EventEmitter<Card> = new EventEmitter<Card>();
+  @Output() delete: EventEmitter<Card> = new EventEmitter<Card>();
+
+  constructor( private authService: AuthService,
+  private confirmationService: ConfirmationService, 
+  private el: ElementRef) {}
+
+  // ----------------------------Auth, Editar e Excluir------------------------------------ //
+
+  @ViewChild('deleteButton') deleteButton: any;
+  currentUserId: string | null = null;
+  private userSubscription: Subscription | undefined;
+
+  ngOnInit() {
+    this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      this.currentUserId = user?.id || null;
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSubscription?.unsubscribe();
+  }
+
+  editCard() {
+    this.edit.emit(this.card);
+  }
+
+  confirmDelete() {
+    this.confirmationService.confirm({
+      target: this.deleteButton.nativeElement,
+      message: "Tem certeza que deseja excluir essa carta?",
+      acceptLabel: "Excluir",
+      rejectLabel: "Voltar",
+      accept: () => {
+        this.deleteCard();
+      }
+    })
+  }
+
+  deleteCard() {
+    this.delete.emit(this.card);
+  }
+
+  // ----------------------------Modal------------------------------------ //
+
   isModalOpen: boolean = false;
 
   openModal() {
@@ -26,11 +79,11 @@ export class CardComponent {
     this.isModalOpen = false;
     this.cards.forEach(card => card.classList.add('animated'));
   }
+
+  // ----------------------------Estilos------------------------------------ //
   
   x: any;
   cards: HTMLElement[] = [];
-
-  constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
     this.cards = Array.from(this.el.nativeElement.querySelectorAll('.card'));

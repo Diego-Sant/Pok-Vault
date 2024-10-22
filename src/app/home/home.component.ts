@@ -1,97 +1,75 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { PaginatorModule } from 'primeng/paginator';
+import { ButtonModule } from 'primeng/button';
 
 import { CardsService } from '../services/cards.service';
 import { Card, Cards } from '../../types';
 import { CardComponent } from '../components/card/card.component';
 import { HeaderComponent } from "../layout/header/header.component";
+import { EditPopupComponent } from "../components/edit-popup/edit-popup.component";
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardComponent, CommonModule, PaginatorModule, HeaderComponent],
+  imports: [CardComponent, CommonModule, PaginatorModule, HeaderComponent, 
+  EditPopupComponent, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 
 export class HomeComponent {
   cardsPoke: Card[] = [];
-  filteredCards: Card[] = [];
+  constructor(private cardsService: CardsService, private authService: AuthService) {}
+  isLoggedIn: boolean = false;
 
-  activeFilter: string = 'older';
-  searchTerm: string = '';
+  currentUserId: string = '';
+  
+  // -------------------Adicionar, editar e excluir------------------------------ //
 
-  totalRecords = 0;
-  rows: number = 12;
-  rowsPerPageOptions: number[] = [8, 12, 18, 24, 32, 40];
+  displayEditPopup: boolean = false;
+  displayAddPopup : boolean = false;
 
-  constructor(private cardsService: CardsService) {}
-
-  onPageChange(event: any) {
-    this.fetchCards(event.page, event.rows);
+  selectedCard: Card = {
+    id: '',
+    title: '',
+    imageUrl: '',
+    price: '',
+    rarity: 0,
+    createdAt: new Date(),
+    userId: '',
   }
 
-  onSearch(term: string) {
-    this.searchTerm = term;
-    this.fetchCards(0, this.rows);
+  toggleEditCard(card: Card) {
+    this.selectedCard = card;
+    this.displayEditPopup = true;
   }
 
-  fetchCards(page: number, perPage: number) {
-    this.cardsService.getCards('http://localhost:8080/api/cartas', {page, perPage, searchTerm: this.searchTerm})
-      .subscribe((cards: Cards) => {
-        this.cardsPoke = cards.cards;
-        this.totalRecords = cards.total;
+  toggleDeleteCard(card: Card) {
 
-        if (perPage > 40) {
-          perPage = this.totalRecords;
-        }
-
-        this.applyFilter();
-      });
   }
 
-  onFilterChange(filterValue: string) {
-    this.activeFilter = filterValue;
-    this.applyFilter();
+  toggleAddCard() {
+    this.displayAddPopup = true;
   }
 
-  applyFilter() {
-    const parseBrazilianCurrency = (value: string) => {
-      return parseFloat(value.replace(/\./g, '').replace(',', '.'));
-    };
-
-    switch (this.activeFilter) {
-      case 'lowPrice':
-        this.filteredCards = this.cardsPoke.sort((a, b) => parseBrazilianCurrency(a.price) - parseBrazilianCurrency(b.price));
-        break;
-      case 'highPrice':
-        this.filteredCards = this.cardsPoke.sort((a, b) => parseBrazilianCurrency(b.price) - parseBrazilianCurrency(a.price));
-        break;
-      case 'recent':
-        this.filteredCards = this.cardsPoke.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        break;
-      case 'older':
-        this.filteredCards = this.cardsPoke.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-        break;
-      case 'alphabetical':
-        this.filteredCards = this.cardsPoke.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      default:
-        this.filteredCards = [...this.cardsPoke];
-        break;
+  onConfirmEdit(card: Card) {
+    if (!this.selectedCard.id) {
+      return;
     }
+
+    this.editCard(card, this.selectedCard.id);
+    this.displayEditPopup = false;
   }
 
-  getDynamicRowsPerPageOptions(): number[] {
-    const options = [...this.rowsPerPageOptions];
-    if (this.totalRecords > 40) {
-      options.push(this.totalRecords);
-    }
-    return options;
+  onConfirmAdd(card: Card) {
+    this.addCard(card);
+    this.displayAddPopup = false;
   }
 
-  editCard(card: Card, id: number) {
+  editCard(card: Card, id: string) {
     this.cardsService.editCard(`http://localhost:8080/api/cartas/${id}`, card)
     .subscribe(
       {
@@ -106,7 +84,7 @@ export class HomeComponent {
     )
   }
 
-  deleteCard(id: number) {
+  deleteCard(id: string) {
     this.cardsService.deleteCard(`http://localhost:8080/api/cartas/${id}`)
     .subscribe(
       {
@@ -136,7 +114,89 @@ export class HomeComponent {
     )
   }
 
+  // -------------------------Filtro------------------------------ //
+
+  filteredCards: Card[] = [];
+  activeFilter: string = 'older';
+
+  applyFilter() {
+    const parseBrazilianCurrency = (value: string) => {
+      return parseFloat(value.replace(/\./g, '').replace(',', '.'));
+    };
+
+    switch (this.activeFilter) {
+      case 'lowPrice':
+        this.filteredCards = this.cardsPoke.sort((a, b) => parseBrazilianCurrency(a.price) - parseBrazilianCurrency(b.price));
+        break;
+      case 'highPrice':
+        this.filteredCards = this.cardsPoke.sort((a, b) => parseBrazilianCurrency(b.price) - parseBrazilianCurrency(a.price));
+        break;
+      case 'recent':
+        this.filteredCards = this.cardsPoke.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        break;
+      case 'older':
+        this.filteredCards = this.cardsPoke.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        break;
+      case 'alphabetical':
+        this.filteredCards = this.cardsPoke.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      default:
+        this.filteredCards = [...this.cardsPoke];
+        break;
+    }
+  }
+
+  onFilterChange(filterValue: string) {
+    this.activeFilter = filterValue;
+    this.applyFilter();
+  }
+
+  // -------------------------Paginação---------------------------------- //
+  
+  totalRecords = 0;
+  rows: number = 12;
+  rowsPerPageOptions: number[] = [8, 12, 18, 24, 32, 40];
+
+  fetchCards(page: number, perPage: number) {
+    this.cardsService.getCards('http://localhost:8080/api/cartas', {page, perPage, searchTerm: this.searchTerm})
+      .subscribe((cards: Cards) => {
+        this.cardsPoke = cards.cards;
+        this.totalRecords = cards.total;
+
+        if (perPage > 40) {
+          perPage = this.totalRecords;
+        }
+
+        this.applyFilter();
+      });
+  }
+
+  onPageChange(event: any) {
+    this.fetchCards(event.page, event.rows);
+  }
+
+  getDynamicRowsPerPageOptions(): number[] {
+    const options = [...this.rowsPerPageOptions];
+    if (this.totalRecords > 40) {
+      options.push(this.totalRecords);
+    }
+    return options;
+  }
+
+  // -------------------------Search---------------------------------- //
+
+  searchTerm: string = '';
+
+  onSearch(term: string) {
+    this.searchTerm = term;
+    this.fetchCards(0, this.rows);
+  }
+
   ngOnInit() {
+    this.authService.currentUser$.subscribe(user => {
+      this.isLoggedIn = !!user;
+    });
+
     this.fetchCards(0, this.rows);
   }
 }

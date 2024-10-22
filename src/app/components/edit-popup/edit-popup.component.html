@@ -1,0 +1,48 @@
+<p-dialog [header]="header" [(visible)]="display" [modal]="true"
+    [closable]="false">
+
+    <div class="column gap-1">
+        <div class="row gap-05">
+            <span class="price-label">Nome:</span>
+            <input type="text" [(ngModel)]="card.title">
+        </div>
+
+        <div class="row gap-05">
+            <span class="price-label">Preço:</span>
+            <input type="text" [(ngModel)]="card.price">
+        </div>
+
+        <div class="row gap-05">
+            <span class="price-label">URL da Imagem:</span>
+            <input type="text" [(ngModel)]="card.imageUrl">
+        </div>
+
+        <div class="flex column gap-y">
+            <p>Raridade:</p>
+            <p-rating [(ngModel)]="card.rarity" stars="5" iconCancelClass="hidden">
+                <ng-template pTemplate="onicon">
+                    <img 
+                        src="onicon.png" 
+                        width="25px" 
+                        height="25px" />
+                </ng-template>
+                <ng-template pTemplate="officon">
+                    <img 
+                        src="officon.png"
+                        width="25px"
+                        height="25px" />
+                </ng-template>
+            </p-rating>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="onConfirm()"
+            label="Editar" class="editbutton">
+            ArrozEdit
+        </button>
+        <button type="button" pButton icon="pi pi-times" (click)="onCancel()"
+            label="Cancelar" class="deletebutton">
+            Arroz
+        </button>
+    </p-footer>
+</p-dialog>

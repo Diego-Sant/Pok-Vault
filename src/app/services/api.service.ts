@@ -19,7 +19,7 @@ export class ApiService {
   }
 
   put<T>(url: string, body: Card, options?: Options): Observable<T> {
-    return this.httpClient.put<T>(url, body, options) as Observable<T>;
+    return this.httpClient.put<T>(url, body, { ...options, withCredentials: true }) as Observable<T>;
   }
 
   delete<T>(url: string, options?: Options): Observable<T> {

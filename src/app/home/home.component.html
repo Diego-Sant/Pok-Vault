@@ -10,9 +10,14 @@
         <button (click)="onFilterChange('highPrice')" [ngClass]="{'active': activeFilter === 'highPrice'}">Maior valor</button>
     </div>
 
+    <button *ngIf="isLoggedIn" type="button" pButton icon="pi pi-plus" (click)="toggleAddCard()"
+        label="Adicionar Carta">
+    </button>
+
     <div class="cards gap-1 space-between">
         <app-card class="flex justify-center border" 
-            *ngFor="let card of filteredCards" [card]="card">
+            *ngFor="let card of filteredCards" [card]="card" 
+            (edit)="toggleEditCard($event)" (delete)="toggleDeleteCard($event)">
         </app-card>
     </div>
 
@@ -21,3 +26,11 @@
     (onPageChange)="onPageChange($event)">
     </p-paginator>
 </div>
+
+<app-edit-popup [card]="selectedCard" [(display)]="displayEditPopup" 
+    (confirm)="onConfirmEdit($event)" header="Editar Carta">
+</app-edit-popup>
+
+<app-edit-popup *ngIf="isLoggedIn" [(display)]="displayAddPopup" (confirm)="onConfirmAdd($event)"
+    header="Adicionar Carta">
+</app-edit-popup>
