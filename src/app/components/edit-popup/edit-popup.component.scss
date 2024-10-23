@@ -1,0 +1,86 @@
+.gap-1 {
+    gap: 10px;
+}
+
+.mb-2 {
+    margin-bottom: 10px;
+}
+
+:host ::ng-deep .p-dialog.custom-dialog {
+    width: 1000px !important;
+    max-width: 90vw !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dialog-content {
+    padding: 20px;
+}
+
+.ml-8 {
+    margin-left: -8px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.price-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.input-price-container {
+    position: relative;
+    display: flex;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+    font-size: 14px;
+    transition: border 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #007bff; /* Cor ao focar */
+    outline: none;
+}
+
+.editbutton {
+    padding: 10px;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+}
+
+.editbutton:hover {
+    background-color: #0056d2;
+}
+
+.backbutton {
+    padding: 10px;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #9E9E9E;
+    color: white;
+    border-radius: 8px;
+    margin-left: 10px;
+}
+
+.backbutton:hover {
+    background-color: #757575;
+}

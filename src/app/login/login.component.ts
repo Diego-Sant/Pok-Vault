@@ -38,7 +38,7 @@ export class LoginComponent {
   
     const { username, password } = this.loginForm.value;
   
-    this.apiService.post('http://localhost:8080/api/auth/entrar', { username, password })
+    this.apiService.post('http://localhost:8080/api/auth/entrar', { username, password }, { withCredentials: true })
     .subscribe({
       next: (response) => {
         this.authService.updateUser(response);

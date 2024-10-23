@@ -10,8 +10,10 @@
         <button (click)="onFilterChange('highPrice')" [ngClass]="{'active': activeFilter === 'highPrice'}">Maior valor</button>
     </div>
 
-    <button *ngIf="isLoggedIn" type="button" pButton icon="pi pi-plus" (click)="toggleAddCard()"
-        label="Adicionar Carta">
+    <button *ngIf="isLoggedIn" type="button" pButton (click)="toggleAddCard()" 
+    class="add-card-button gap-1">
+        <i class="pi pi-plus"></i>
+        <span>Adicionar Carta</span>
     </button>
 
     <div class="cards gap-1 space-between">
@@ -23,7 +25,7 @@
 
     <p-paginator [rows]="rows" [totalRecords]="totalRecords" 
     [rowsPerPageOptions]="getDynamicRowsPerPageOptions()"
-    (onPageChange)="onPageChange($event)">
+    (onPageChange)="onPageChange($event)" #paginator>
     </p-paginator>
 </div>
 

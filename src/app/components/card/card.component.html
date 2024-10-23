@@ -34,12 +34,12 @@
             </p-rating>
     
             <div class="row gap-5" *ngIf="currentUserId === card.userId">
-                <button type="button" pButton class="button-edit" 
-                    (click)="editCard()" class="editbutton">
+                <button type="button" pButton class="editbutton" 
+                    (click)="editCard()">
                     Editar
                 </button>
-                <button type="button" pButton class="button-delete"
-                    (click)="confirmDelete()" class="deletebutton" #deleteButton>
+                <button type="button" pButton class="deletebutton"
+                    (click)="confirmDelete()" #deleteButton>
                     Excluir
                 </button>
             </div>

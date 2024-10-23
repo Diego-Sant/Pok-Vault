@@ -15,7 +15,7 @@ export class ApiService {
   }
 
   post<T>(url: string, body: any, options?: Options): Observable<T> {
-    return this.httpClient.post<T>(url, body, options) as Observable<T>;
+    return this.httpClient.post<T>(url, body, { ...options, withCredentials: true }) as Observable<T>;
   }
 
   put<T>(url: string, body: Card, options?: Options): Observable<T> {
@@ -23,6 +23,6 @@ export class ApiService {
   }
 
   delete<T>(url: string, options?: Options): Observable<T> {
-    return this.httpClient.delete<T>(url, options) 
+    return this.httpClient.delete<T>(url, { ...options, withCredentials: true }) 
   }
 }

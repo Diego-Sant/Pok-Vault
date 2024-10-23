@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PaginatorModule } from 'primeng/paginator';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 
 import { CardsService } from '../services/cards.service';
@@ -48,7 +48,11 @@ export class HomeComponent {
   }
 
   toggleDeleteCard(card: Card) {
+    if (!card.id) {
+      return;
+    }
 
+    this.deleteCard(card.id);
   }
 
   toggleAddCard() {
@@ -76,6 +80,7 @@ export class HomeComponent {
         next: (data) => {
           console.log(data);
           this.fetchCards(0, this.rows);
+          this.resetPaginator();
         },
         error: (error) => {
           console.log(error)
@@ -91,6 +96,7 @@ export class HomeComponent {
         next: (data) => {
           console.log(data);
           this.fetchCards(0, this.rows);
+          this.resetPaginator();
         },
         error: (error) => {
           console.log(error)
@@ -106,6 +112,7 @@ export class HomeComponent {
         next: (data) => {
           console.log(data);
           this.fetchCards(0, this.rows);
+          this.resetPaginator();
         },
         error: (error) => {
           console.log(error)
@@ -153,6 +160,8 @@ export class HomeComponent {
 
   // -------------------------Paginação---------------------------------- //
   
+  @ViewChild('paginator') paginator: Paginator | undefined;
+
   totalRecords = 0;
   rows: number = 12;
   rowsPerPageOptions: number[] = [8, 12, 18, 24, 32, 40];
@@ -173,6 +182,10 @@ export class HomeComponent {
 
   onPageChange(event: any) {
     this.fetchCards(event.page, event.rows);
+  }
+
+  resetPaginator() {
+    this.paginator?.changePage(0);
   }
 
   getDynamicRowsPerPageOptions(): number[] {

@@ -1,48 +1,46 @@
 <p-dialog [header]="header" [(visible)]="display" [modal]="true"
-    [closable]="false">
+    [closable]="false" styleClass="custom-dialog">
 
-    <div class="column gap-1">
-        <div class="row gap-05">
-            <span class="price-label">Nome:</span>
-            <input type="text" [(ngModel)]="card.title">
+    <div class="dialog-content gap-y-10">
+        <div class="row column">
+            <span class="price-label">Nome da carta:</span>
+            <input type="text" [(ngModel)]="card.title" class="input-field">
         </div>
 
-        <div class="row gap-05">
-            <span class="price-label">Preço:</span>
-            <input type="text" [(ngModel)]="card.price">
+        <div class="row column">
+            <span class="price-label">Preço (em reais):</span>
+            <div class="input-price-container">
+                <input type="text" [(ngModel)]="card.price" class="input-field" 
+                (input)="onPriceInput($event)" />
+            </div>
         </div>
 
-        <div class="row gap-05">
+        <div class="row column">
             <span class="price-label">URL da Imagem:</span>
-            <input type="text" [(ngModel)]="card.imageUrl">
+            <input type="text" [(ngModel)]="card.imageUrl" class="input-field">
         </div>
 
-        <div class="flex column gap-y">
-            <p>Raridade:</p>
-            <p-rating [(ngModel)]="card.rarity" stars="5" iconCancelClass="hidden">
+        <div class="flex column">
+            <p class="mb-2">Raridade:</p>
+            <p-rating [(ngModel)]="card.rarity" stars="5" iconCancelClass="hidden" class="ml-8">
                 <ng-template pTemplate="onicon">
-                    <img 
-                        src="onicon.png" 
-                        width="25px" 
-                        height="25px" />
+                    <img src="onicon.png" width="25px" height="25px" />
                 </ng-template>
                 <ng-template pTemplate="officon">
-                    <img 
-                        src="officon.png"
-                        width="25px"
-                        height="25px" />
+                    <img src="officon.png" width="25px" height="25px" />
                 </ng-template>
             </p-rating>
         </div>
     </div>
+
     <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="onConfirm()"
-            label="Editar" class="editbutton">
-            ArrozEdit
+        <button type="button" pButton (click)="onConfirm()"
+            class="editbutton">
+            Confirmar
         </button>
-        <button type="button" pButton icon="pi pi-times" (click)="onCancel()"
-            label="Cancelar" class="deletebutton">
-            Arroz
+        <button type="button" pButton (click)="onCancel()"
+            class="backbutton">
+            Voltar
         </button>
     </p-footer>
 </p-dialog>

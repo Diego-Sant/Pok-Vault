@@ -41,4 +41,13 @@ export class EditPopupComponent {
     this.display = false;
     this.displayChange.emit(this.display);
   }
+
+  onPriceInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    
+    const value = input.value.replace(/[^0-9.,]/g, '');
+    input.value = value;
+
+    this.card.price = value;
+  }
 }
