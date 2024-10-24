@@ -30,10 +30,30 @@ export class EditPopupComponent {
 
   @Output() confirm = new EventEmitter<Card>();
 
+  errorMessage: string = '';
+
   onConfirm() {
-    this.confirm.emit(this.card);
-    this.display = false;
-    this.displayChange.emit(this.display);
+    if (this.validateInputs()) {
+      this.confirm.emit(this.card);
+      this.display = false;
+      this.displayChange.emit(this.display);
+    }
+  }
+
+  validateInputs(): boolean {
+    this.errorMessage = '';
+
+    if (!this.card.title || !this.card.imageUrl || !this.card.price || this.card.rarity === 0) {
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
+      
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 5000);
+
+      return false;
+    }
+
+    return true;
   }
 
   onCancel() {
