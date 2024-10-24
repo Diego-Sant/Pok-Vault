@@ -39,7 +39,7 @@ export class RegisterComponent {
   
     const { username, email, password } = this.registerForm.value;
   
-    this.apiService.post('http://localhost:8080/api/auth/cadastrar', { username, email, password })
+    this.apiService.post('https://poke-vault-api.vercel.app/api/auth/cadastrar', { username, email, password })
     .subscribe({
       next: (response) => {
         this.router.navigate(['/entrar']);

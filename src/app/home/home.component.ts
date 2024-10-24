@@ -74,7 +74,7 @@ export class HomeComponent {
   }
 
   editCard(card: Card, id: string) {
-    this.cardsService.editCard(`http://localhost:8080/api/cartas/${id}`, card)
+    this.cardsService.editCard(`https://poke-vault-api.vercel.app/api/cartas/${id}`, card)
     .subscribe(
       {
         next: (data) => {
@@ -90,7 +90,7 @@ export class HomeComponent {
   }
 
   deleteCard(id: string) {
-    this.cardsService.deleteCard(`http://localhost:8080/api/cartas/${id}`)
+    this.cardsService.deleteCard(`https://poke-vault-api.vercel.app/api/cartas/${id}`)
     .subscribe(
       {
         next: (data) => {
@@ -106,7 +106,7 @@ export class HomeComponent {
   }
 
   addCard(card: Card) {
-    this.cardsService.addCard(`http://localhost:8080/api/cartas`, card)
+    this.cardsService.addCard(`https://poke-vault-api.vercel.app/api/cartas`, card)
     .subscribe(
       {
         next: (data) => {
@@ -167,7 +167,7 @@ export class HomeComponent {
   rowsPerPageOptions: number[] = [8, 12, 18, 24, 32, 40];
 
   fetchCards(page: number, perPage: number) {
-    this.cardsService.getCards('http://localhost:8080/api/cartas', {page, perPage, searchTerm: this.searchTerm})
+    this.cardsService.getCards('https://poke-vault-api.vercel.app/api/cartas', {page, perPage, searchTerm: this.searchTerm})
       .subscribe((cards: Cards) => {
         this.cardsPoke = cards.cards;
         this.totalRecords = cards.total;
